@@ -1,30 +1,29 @@
 package com.example.coffeeshop.controller;
 
-import com.example.coffeeshop.model.Users;
-import com.example.coffeeshop.repository.UserRepository;
-import com.example.coffeeshop.service.userService;
+import com.example.coffeeshop.domain.Users;
+import com.example.coffeeshop.dto.requestDto.ChargePointDto;
+import com.example.coffeeshop.dto.requestDto.SignUpDto;
+import com.example.coffeeshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
-public class userController {
+public class UserController {
 
 
-    private final userService service;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    @PostMapping
-    public String addUser(){
-        Users user = new Users();
-        userRepository.save(user);
+    @PostMapping("/signup")
+    public String addUser(@RequestBody SignUpDto dto){
+        userService.signUp(dto);
         return "ok";
     }
 
-    @PostMapping("{userId}")
-    public String chargePoint(@PathVariable Long userId, @RequestParam int point){
-        service.chargePoint(userId,point);
+    @PostMapping("/charge-point")
+    public String chargePoint(@RequestBody ChargePointDto dto){
+        userService.chargePoint(dto);
         return "포인트 충전 완료";
     }
 }

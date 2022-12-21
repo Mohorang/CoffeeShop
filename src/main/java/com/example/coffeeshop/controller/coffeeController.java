@@ -2,9 +2,9 @@ package com.example.coffeeshop.controller;
 
 import com.example.coffeeshop.dto.responseDto.CoffeeList;
 import com.example.coffeeshop.dto.responseDto.CoffeeRank;
-import com.example.coffeeshop.model.Coffee;
+import com.example.coffeeshop.domain.Coffee;
 import com.example.coffeeshop.repository.CoffeeRepository;
-import com.example.coffeeshop.service.coffeeService;
+import com.example.coffeeshop.service.CoffeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +17,9 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/coffees")
-public class coffeeController {
+public class CoffeeController {
     private final CoffeeRepository coffeeRepository;
-    private final coffeeService service;
+    private final CoffeeService service;
 
     @PostConstruct
     public void coffeeSetting(){
