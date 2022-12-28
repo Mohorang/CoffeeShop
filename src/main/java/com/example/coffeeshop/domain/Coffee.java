@@ -34,9 +34,6 @@ public class Coffee {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    //주문횟수
-    private int orderCount;
-
     @OneToMany(mappedBy = "coffee" , cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails = new ArrayList<>();
 

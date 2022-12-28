@@ -31,13 +31,4 @@ public class CoffeeService {
         return coffeeList;
     }
 
-    //인기메뉴 목록 조회
-    public List<CoffeeRank> getCoffeeRank(){
-        List<CoffeeRank> coffeeRanks = new ArrayList<>();
-        List<Coffee> coffees = coffeeRepository.findAll(Sort.by(Sort.Direction.DESC,"orderCount"));
-        for (int i = 0; i < coffees.size(); i++) {
-            System.out.println(coffees.get(i).getName());
-        }
-        return coffeeRanks;
-    }
 }
