@@ -55,6 +55,11 @@ public class CoffeeController {
     @GetMapping("/popular")
     public String coffeeRank(){
         Pageable limit3 = PageRequest.of(0,3);
+        List<OrderDetail> result = orderRepository.findAllPopularCoffeeId(LocalDateTime.now().minusDays(7),limit3);
+
+        for (OrderDetail orderDetail : result) {
+            log.info("coffee name = {} , coffee quantity = {}", orderDetail.getCoffee().getName(), orderDetail.getQuantity());
+        }
 
         return "ok";
     }
