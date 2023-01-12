@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CoffeeListDto {
+public class OrderCoffeeDetailDto {
     private Long coffeeId;
     private int quantity;
 
-    public CoffeeListDto(Long coffeeId,int quantity){
+    public OrderCoffeeDetailDto(Long coffeeId, int quantity){
         this.coffeeId = coffeeId;
         this.quantity = quantity;
     }

@@ -2,7 +2,7 @@ package com.example.coffeeshop.service;
 
 import com.example.coffeeshop.domain.Coffee;
 import com.example.coffeeshop.domain.Users;
-import com.example.coffeeshop.dto.requestDto.CoffeeListDto;
+import com.example.coffeeshop.dto.requestDto.OrderCoffeeDetailDto;
 import com.example.coffeeshop.dto.requestDto.OrderCoffeeDto;
 import com.example.coffeeshop.repository.CoffeeRepository;
 import com.example.coffeeshop.repository.UserRepository;
@@ -31,27 +31,15 @@ class OrderServiceTest {
 //  coffees.add(new Coffee("딸기라떼",3500));
 //  coffees.add(new Coffee("레몬에이드",3000));
 
-private int getTotalPrice(OrderCoffeeDto dto) {
-    int totalPrice = 0;
-    for (int i = 0; i < dto.getCoffeeListDto().size(); i++) {
-        Long coffeeId = dto.getCoffeeListDto().get(i).getCoffeeId();
-        Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow();
 
-        int quantity = dto.getCoffeeListDto().get(i).getQuantity();
-        int price = coffee.getPrice();
-
-        totalPrice += price*quantity;
-    }
-    return totalPrice;
-}
     @BeforeEach
     public OrderCoffeeDto createOrderCoffeeDto(){
 
         OrderCoffeeDto orderCoffeeDto = new OrderCoffeeDto();
-        List<CoffeeListDto> coffeeListDto = new ArrayList<>();
-        coffeeListDto.add(new CoffeeListDto(1L,2));
-        coffeeListDto.add(new CoffeeListDto(2L,3));
-        orderCoffeeDto.setCoffeeListDto(coffeeListDto);
+        List<OrderCoffeeDetailDto> orderCoffeeDetailDto = new ArrayList<>();
+        orderCoffeeDetailDto.add(new OrderCoffeeDetailDto(1L,2));
+        orderCoffeeDetailDto.add(new OrderCoffeeDetailDto(2L,3));
+        orderCoffeeDto.setOrderCoffeeDetailDto(orderCoffeeDetailDto);
         orderCoffeeDto.setUserId(1L);
 
         return orderCoffeeDto;
@@ -93,6 +81,18 @@ private int getTotalPrice(OrderCoffeeDto dto) {
         //then
 
     }
+    private int getTotalPrice(OrderCoffeeDto dto) {
+        int totalPrice = 0;
+        for (int i = 0; i < dto.getOrderCoffeeDetailDto().size(); i++) {
+            Long coffeeId = dto.getOrderCoffeeDetailDto().get(i).getCoffeeId();
+            Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow();
 
+            int quantity = dto.getOrderCoffeeDetailDto().get(i).getQuantity();
+            int price = coffee.getPrice();
+
+            totalPrice += price*quantity;
+        }
+        return totalPrice;
+    }
 
 }

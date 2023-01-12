@@ -1,6 +1,7 @@
 package com.example.coffeeshop.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,22 +27,26 @@ public class Order {
 
     private LocalDateTime orderedAt;
 
-    private int totalPrice;
+    @Setter
+    private long totalPrice;
 
+    public void addOrderDetail(Users user,OrderDetail orderDetail) {
+        this.totalPrice += orderDetail.getPrice();
 
-    public void addOrder(Users user,OrderDetail orderDetail) {
         orderDetails.add(orderDetail);
-        orderDetail.setOrder(this);
 
         this.user = user;
         user.getOrders().add(this);
 
-        calculateTotalPrice(orderDetail.getPrice());
         this.orderedAt = LocalDateTime.now();
     }
-    public void calculateTotalPrice(int totalPrice){
-        this.totalPrice += totalPrice;
-        //유저 포인트 차감
-        this.user.usePoint(totalPrice);
+
+
+
+    private void setOrderDetail(Users user, OrderDetail orderDetail) {
+        orderDetails.add(orderDetail);
+
+        this.user = user;
+        user.getOrders().add(this);
     }
 }

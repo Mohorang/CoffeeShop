@@ -20,7 +20,7 @@ public class Users {
     private Long id;
 
     private String nickname;
-    private int point;
+    private long point;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
@@ -31,11 +31,18 @@ public class Users {
     public Users(String nickname){
         this.nickname = nickname;
     }
-    public void chargePoint(int point){
+    public void chargePoint(long point){
         this.point += point;
+        PointRecord pointRecord = new PointRecord(this,point,PointStatus.CHARGE);
+        pointRecords.add(pointRecord);
     }
 
-    public void usePoint(int point){
+    public void usePoint(long point){
+        if(this.point < point){
+            throw new IllegalArgumentException("포인트가 부족합니다.");
+        }
         this.point -= point;
+        PointRecord pointRecord = new PointRecord(this,point,PointStatus.USE);
+        pointRecords.add(pointRecord);
     }
 }

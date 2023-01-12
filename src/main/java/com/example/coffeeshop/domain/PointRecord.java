@@ -13,7 +13,7 @@ public class PointRecord {
     @Column(name = "point_record_id")
     private Long id;
 
-    private int point;
+    private long point;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -22,20 +22,29 @@ public class PointRecord {
     @Enumerated(value = EnumType.STRING)
     private PointStatus pointStatus;
 
-    public void setUser(Users user){
-        this.user = user;
-        this.user.getPointRecords().add(this);
-    }
+//    public void setUser(Users user){
+//        this.user = user;
+//        this.user.getPointRecords().add(this);
+//    }
+//
+//    public void addPoint(Users user,long point) {
+//        this.setUser(user);
+//        this.point = point;
+//        this.pointStatus = PointStatus.CHARGE;
+//        this.user.chargePoint(point);
+//    }
+//
+//    public void usePoint(Users user,long point){
+//        this.setUser(user);
+//        this.point = point;
+//        this.pointStatus = PointStatus.USE;
+//        this.user.usePoint(point);
+//    }
 
-    public void addPoint(Users user,int point) {
-        this.setUser(user);
+    public PointRecord(Users user,long point,PointStatus pointStatus){
         this.point = point;
-        this.pointStatus = PointStatus.CHARGE;
-    }
-
-    public void usePoint(Users user,int point){
-        this.setUser(user);
-        this.point = point;
-        this.pointStatus = PointStatus.USE;
+        this.pointStatus = pointStatus;
+        //this.user.usePoint(point);
+        //       this.setUser(user);
     }
 }

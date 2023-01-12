@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "order_detail")
 public class OrderDetail {
@@ -30,9 +29,10 @@ public class OrderDetail {
     //가격
     private int price;
 
-    public OrderDetail(Coffee coffee,int quantity, int price){
-        this.setCoffee(coffee);
+    public OrderDetail(Order order , Coffee coffee,int quantity){
+        this.order = order;
+        this.coffee = coffee;
         this.quantity = quantity;
-        this.price = price*quantity;
+        this.price = coffee.getPrice()*quantity;
     }
 }

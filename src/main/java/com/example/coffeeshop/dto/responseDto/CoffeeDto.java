@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class CoffeeList {
-
+//CoffeeDto
+public class CoffeeDto {
     private Long id;
     private String name;
     private int price;

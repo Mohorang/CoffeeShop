@@ -1,6 +1,5 @@
 package com.example.coffeeshop.dto.requestDto;
 
-import com.example.coffeeshop.dto.responseDto.CoffeeList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +9,5 @@ import java.util.List;
 @Setter
 public class OrderCoffeeDto {
     private Long userId;
-    private List<CoffeeListDto> coffeeListDto;
+    private List<OrderCoffeeDetailDto> orderCoffeeDetailDto;
 }
