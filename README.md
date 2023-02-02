@@ -27,3 +27,6 @@
       - 결제는 포인트로만 가능하며 충전한 포인트에서 주문금액을 차감
    4. 인기메뉴 목록 조회 API
       - 최근 7일간 인기있는 메뉴 3개를 조회하는 API
+
+# **ERD**
+![ERD](https://user-images.githubusercontent.com/41957723/216234761-9d92b7b3-97a7-4f94-b8ac-33c66976c478.png)
