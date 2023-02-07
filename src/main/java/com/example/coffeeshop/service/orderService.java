@@ -25,8 +25,6 @@ public class OrderService {
                 () -> new IllegalArgumentException("존재하지 않는 유저입니다.")
         );
 
-        //long totalPrice = getTotalPrice(dto);
-
         Order order = new Order();
 
         for (int i = 0; i < dto.getOrderCoffeeDetailDto().size(); i++) {
@@ -39,27 +37,10 @@ public class OrderService {
             OrderDetail orderDetail = new OrderDetail(order,coffee,quantity);
 
             order.addOrderDetail(user,orderDetail);
-//          order.setTotalPrice(order.getOrderDetails().stream().map(OrderDetail::getPrice).mapToInt(Integer::intValue).sum());
 
         }
         user.usePoint(order.getTotalPrice());
 
         orderRepository.save(order);
-    }
-
-
-    //중복쿼리 줄이기
-    private Long getTotalPrice(OrderCoffeeDto dto) {
-        long totalPrice = 0L;
-        for (int i = 0; i < dto.getOrderCoffeeDetailDto().size(); i++) {
-            Long coffeeId = dto.getOrderCoffeeDetailDto().get(i).getCoffeeId();
-            Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow();
-
-            int quantity = dto.getOrderCoffeeDetailDto().get(i).getQuantity();
-            int price = coffee.getPrice();
-
-            totalPrice += (long)price*quantity;
-        }
-        return totalPrice;
     }
 }

@@ -22,26 +22,8 @@ public class PointRecord {
     @Enumerated(value = EnumType.STRING)
     private PointStatus pointStatus;
 
-//    public void setUser(Users user){
-//        this.user = user;
-//        this.user.getPointRecords().add(this);
-//    }
-//
-//    public void addPoint(Users user,long point) {
-//        this.setUser(user);
-//        this.point = point;
-//        this.pointStatus = PointStatus.CHARGE;
-//        this.user.chargePoint(point);
-//    }
-//
-//    public void usePoint(Users user,long point){
-//        this.setUser(user);
-//        this.point = point;
-//        this.pointStatus = PointStatus.USE;
-//        this.user.usePoint(point);
-//    }
-
     public PointRecord(Users user,long point,PointStatus pointStatus){
+        this.user = user;
         this.point = point;
         this.pointStatus = pointStatus;
         //this.user.usePoint(point);

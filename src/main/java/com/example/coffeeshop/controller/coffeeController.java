@@ -37,9 +37,7 @@ public class CoffeeController {
     //인기메뉴 목록 조회
     @GetMapping("/popular")
     public List<CoffeeRank> coffeeRank(){
-
-        return orderRankRepository.CoffeeRankIn7Days();
-//        return service.getPopularCoffeeList();
+        return service.getPopularCoffeeList();
     }
 
 }

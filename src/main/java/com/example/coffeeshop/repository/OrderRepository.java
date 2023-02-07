@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order , Long> {
 
-    //Query DSL 로 바꿔보기
+    //Query DSL 로 바꿔보기  ---> OrderRankRepository
     @Query(value = "select d.coffee.id as id,sum(d.price) as price from OrderDetail d inner join Order o on d.order.id = o.id where o.orderedAt > :sevenDays group by d.coffee.id order by sum(d.price) desc")
     List<CoffeeIdAndSumDto> findAllPopularCoffeeId(@Param("sevenDays")LocalDateTime sevenDays , Pageable limit3);
 }
