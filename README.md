@@ -30,3 +30,30 @@
 
 # **ERD**
 ![ERD](https://user-images.githubusercontent.com/41957723/216234761-9d92b7b3-97a7-4f94-b8ac-33c66976c478.png)
+
+### **개선내용**
+
+
+
+1. **중복쿼리 제거**
+
+   - orderService에서 주문받은 커피를 처리하는 로직에서 dto에 수량과 커피 id를 받아오고 새로운 Order와 수량,커피종류,총 가격이 담겨있는 OrderDetail을 생성하기 전에 Dto로부터 받은 id와 수량을 가지고 총 금액이 얼마인지 미리 계산하게끔 설계하였다. 
+
+     ```java
+     private Long getTotalPrice(OrderCoffeeDto dto) {
+         long totalPrice = 0L;
+         for (int i = 0; i < dto.getOrderCoffeeDetailDto().size(); i++) {
+             Long coffeeId =dto.getOrderCoffeeDetailDto().get(i).getCoffeeId();
+             
+             Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow();
+             
+             int quantity = dto.getOrderCoffeeDetailDto().get(i).getQuantity();
+             int price = coffee.getPrice();
+     
+             totalPrice += (long)price*quantity;
+         }
+         return totalPrice;
+     }
+     ```
+
+     위와같은 메소드를 초기에 만들었는데 주문받은 커피들이 Order에 등록될 때에도 동일한 쿼리가 나가고 있는것을 발견햇고 비록 성능에 큰 영향을 미치지 않는 수준이라 하여도 동일한 쿼리를 여러번 날릴 필요는 없다고 판단, 총 주문금액을 Order에 OrderDetail을 관계맺어줄 때 마다 합산하도록 변경하여 동일한 쿼리가 나가는 것을 방지하였다.
